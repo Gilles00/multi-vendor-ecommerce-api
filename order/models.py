@@ -32,14 +32,10 @@ class Order(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     ref_code = models.CharField(max_length=20, blank=True, null=True)
-    items = models.ManyToManyField(OrderItem)
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
-    ordered = models.BooleanField(default=False)
     order_note = models.TextField(max_length=500, null=True, blank=True)
     order_status = models.CharField(max_length=20, choices=ORDER_STATUS, default='PLACED')
-    payment_method = models.CharField(max_length=12, null=True, blank=True, default='CASH ON')
-    payment_status = models.CharField(max_length=12, null=True, blank=True, default='PENDING')
     delivery_address = models.ForeignKey(
         CustomerAddress,
         related_name='shipping_address',
@@ -80,7 +76,7 @@ class OrderDetails(models.Model):
         super(OrderDetails, self).save(*args, **kwargs)
 
 
-class PaymentHistory(models.Model):
+class PaymentDetails(models.Model):
     PAYMENT_METHOD = (
         ('BKASH', 'Order Placed'),
         ('ROCKET', 'Order Received'),
@@ -106,4 +102,4 @@ class PaymentHistory(models.Model):
     def save(self, *args, **kwargs):
         if self.amount_paid is None or self.amount_paid is 0:
             self.amount_paid = self.order.order_amount
-        super(PaymentHistory, self).save(*args, **kwargs)
+        super(PaymentDetails, self).save(*args, **kwargs)
