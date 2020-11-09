@@ -1,7 +1,6 @@
 from django.db import models
-from customer.models import Images
 # Create your models here.
-class Supplier(models.Model):
+class Vendor(models.Model):
     name = models.CharField(max_length=150)
     address = models.CharField(max_length=150)
     company_name = models.CharField(max_length=150)

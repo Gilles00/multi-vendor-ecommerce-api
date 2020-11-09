@@ -11,7 +11,7 @@ from stdimage import StdImageField
 
 
 
-class Address(models.Model):
+class CustomerAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer_address')
     zip_code = models.CharField(max_length=50)
     area = models.CharField(max_length=50, null=True)
