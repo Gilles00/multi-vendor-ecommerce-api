@@ -45,7 +45,8 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return f"{self.customer} - {self.ordered}- {self.order_status}"
+        return f"{self.pk} - {self.customer} - {self.order_status}"
+
     @property
     def order_amount(self):
         return 0
