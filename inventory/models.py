@@ -4,7 +4,7 @@ from smartfields import fields
 from stdimage import StdImageField
 from vendor.models import Vendor
 from customer.models import CustomerProfile
-from delivery.models import DeliveryDetails
+from delivery.models import *
 from django.conf import settings
 
 User = settings.AUTH_USER_MODEL
@@ -26,13 +26,13 @@ class ProductCategory(models.Model):
     alternative_name = models.CharField(max_length=150)
     descriptions = models.TextField()
     icon = StdImageField(
-        upload_to='media/images/category_images/' + name + '/',
+        upload_to='media/images/category_images/' + str(name) + '/',
         blank=True,
         null=True,
         editable=True,
     )
     image = StdImageField(
-        upload_to='media/images/category_images/' + name + '/',
+        upload_to='media/images/category_images/' + str(name) + '/',
         blank=True,
         null=True,
         editable=True,
@@ -55,13 +55,13 @@ class ProductSubCategory(models.Model):
     alternative_name = models.CharField(max_length=150)
     descriptions = models.TextField()
     icon = StdImageField(
-        upload_to='media/images/category_images/' + name + '/',
+        upload_to='media/images/category_images/' + str(name) + '/',
         blank=True,
         null=True,
         editable=True,
     )
     image = StdImageField(
-        upload_to='media/images/category_images/' + name + '/',
+        upload_to='media/images/category_images/' + str(name) + '/',
         blank=True,
         null=True,
         editable=True,
@@ -152,7 +152,7 @@ class Product(models.Model):
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = StdImageField(
-        upload_to='media/images/product_images/' + product.category.name + '/',
+        upload_to='media/images/product_images/' + str(product) + '/',
         blank=True,
         null=True,
         editable=True,
@@ -186,7 +186,7 @@ class ProductReview(models.Model):
         Product,
         on_delete=models.CASCADE
     )
-    customer = models.ForeignKey(User)
+    customer = models.ForeignKey(User, on_delete= models.SET('Unknown'))
     review = models.CharField(max_length=150)
     is_active = models.CharField(max_length=150)
     rating = models.IntegerField(
@@ -228,7 +228,7 @@ class Coupon(models.Model):
 
 # Custom offer
 class CustomOffer(models.Model):
-    supplier = models.ForeignKey(Vendor)
+    supplier = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,

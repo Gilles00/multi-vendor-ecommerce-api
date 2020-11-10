@@ -6,7 +6,7 @@ from stdimage import StdImageField
 from inventory.models import Product
 from vendor.models import Vendor
 from customer.models import CustomerProfile, CustomerAddress
-from delivery.models import DeliveryDetails
+from delivery.models import *
 from django.conf import settings
 
 User = settings.AUTH_USER_MODEL
