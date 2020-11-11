@@ -104,7 +104,7 @@ class Product(models.Model):
         blank=True,
         on_delete=models.CASCADE
     )
-    price = models.DecimalField(validators=[MinValueValidator(0)])
+    price = models.DecimalField(max_digits=10, decimal_places=2,validators=[MinValueValidator(0)])
     sock_quantity = models.IntegerField()
     sub_category = models.ForeignKey(
         ProductSubCategory,
@@ -172,8 +172,8 @@ class ProductPurchased(models.Model):
         null=True,
         blank=True
     )
-    selling_price = models.DecimalField()
-    buying_price = models.DecimalField()
+    selling_price = models.DecimalField(max_digits=10, decimal_places=2)
+    buying_price = models.DecimalField(max_digits=10, decimal_places=2)
     purchase_date = models.DateField()
     additional_field = models.CharField(max_length=150)
     created = models.DateField(auto_now_add=True)

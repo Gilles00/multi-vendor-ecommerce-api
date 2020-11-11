@@ -65,7 +65,7 @@ class OrderDetails(models.Model):
     )
     sku = models.CharField(max_length=200)
     quantity = models.IntegerField(validators=[MinValueValidator(0)])
-    unit_price = models.DecimalField()
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     @property
     def count_item_total(self):
@@ -96,7 +96,7 @@ class PaymentDetails(models.Model):
     )
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHOD)
     payment_status = models.CharField(max_length=10, choices=PAYMENT_STATUS)
-    amount_paid = models.DecimalField(default=0)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2,default=0)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
